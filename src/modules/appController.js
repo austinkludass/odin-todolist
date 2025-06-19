@@ -5,10 +5,11 @@ import { DOMManager } from "./domManager";
 export const AppController = (() => {
     const handleNewProject = (name) => {
         const project = createProject(name);
-        ProjectListManager.addProject(project);
-        DOMManager.addNewProject(project);
-
-        updateStorageData();
+        const result = ProjectListManager.addProject(project);
+        if (result) {
+            DOMManager.addNewProject(project);
+            updateStorageData();
+        }
     };
 
     const handleNewTask = (project, name, desc, duedate, priority, notes, complete) => {
@@ -34,9 +35,22 @@ export const AppController = (() => {
         updateStorageData();
     };
 
+    const handleRemoveTask = (project, task) => {
+        ProjectListManager.removeTask(project, task);
+
+        updateStorageData();
+    };
+
+    const handleUpdatedTask = (project, task) => {
+        ProjectListManager.updateTask(project, task);
+
+        updateStorageData();
+    }
+
     const updateStorageData = () => {
         ProjectListManager.updateStorage();
-    }
+    };
+
 
     const getStorageData = () => {
         const projects = ProjectListManager.getProjectsFromStorage();
@@ -45,12 +59,14 @@ export const AppController = (() => {
                 DOMManager.addNewProject(proj);
             });
         }
-    }
+    };
 
     DOMManager.setNewProjectHandler(handleNewProject);
     DOMManager.setNewTaskHandler(handleNewTask);
     DOMManager.setRemoveProjectCallback(handleRemoveProject);
     DOMManager.setTaskCompleteCallback(handleTaskComplete);
+    DOMManager.setRemoveTaskCallback(handleRemoveTask);
+    DOMManager.setUpdatedTaskCallback(handleUpdatedTask);
 
     return {
         init: () => {

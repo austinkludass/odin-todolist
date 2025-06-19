@@ -20,16 +20,16 @@
                   <h2>Add Task</h2>
               
                   <form id="taskForm">
-                      <label>Title:</label>
-                      <input type="text" id="taskTitle" required />
+                      <label for="taskTitle">Title:</label>
+                      <input type="text" maxlength="12" id="taskTitle" required />
                   
-                      <label>Description:</label>
-                      <input type="text" id="taskDescription" />
+                      <label for="taskDescription">Description:</label>
+                      <input maxlength="96" type="text" id="taskDescription" />
                   
-                      <label>Notes:</label>
+                      <label for="taskNotes">Notes:</label>
                       <textarea id="taskNotes"></textarea>
                   
-                      <label>Due Date:</label>
+                      <label for="taskDueDate">Due Date:</label>
                       <input type="date" id="taskDueDate" required />
                   
                       <label>Priority:</label>
@@ -45,6 +45,15 @@
                       </div>
                       <button id="addTaskBtn">ADD</button>
                   </form>
+                </div>
+            </div>
+            <div class="todo-details-modal">
+                <div class="details-content">
+                    <div id="details-title"></div>
+                    <div id="details-due"></div>
+                    <div id="details-desc"></div>
+                    <div id="details-notes"></div>
+                    <div id="details-priority"></div>
                 </div>
             </div>
         </div>

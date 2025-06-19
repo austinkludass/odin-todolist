@@ -15,12 +15,19 @@
     --dark-red: #721c24;
 }
 
+html {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 body {
     background-color: rgb(245, 245, 245);
     margin: 0;
     box-sizing: border-box;
     padding: 100px;
-    height: 100vh;
+    height: 100%;
     font-family: "Manrope", sans-serif;
 }
 
@@ -32,8 +39,10 @@ body {
     overflow: hidden;
     border-radius: 40px;
     min-width: 750px;
+    width: 800px;
     max-width: 1200px;
-    height: 100%;
+    max-height: 770px;
+    height: 770px;
     grid-template: 1fr / 250px 1fr;
     background-color: rgb(255, 255, 255);
     user-select: none;
@@ -42,7 +51,7 @@ body {
 .sidebar {
     display: grid;
     grid-template-rows: 50px 80px;
-    /* padding: 10px; */
+    max-height: 100%;
     background-color: rgb(230, 230, 230);
     box-shadow: 0.1px 0px 10px 0px #888;
 }
@@ -67,6 +76,9 @@ body {
     display: grid;
     grid-auto-rows: 40px;
     color: rgb(58, 58, 58);
+    overflow: auto;
+    max-height: 600px;
+    margin-bottom: 40px;
 }
 
 .project-card {
@@ -209,6 +221,8 @@ body {
     display: grid;
     grid-template-rows: 100px;
     grid-auto-rows: 50px;
+    max-height: 770px;
+    overflow: auto;
 }
 
 .todo-header {
@@ -221,8 +235,12 @@ body {
 
 .todo-card {
     display: grid;
-    grid-template-columns: 50px 1fr 100px 100px;
+    grid-template-columns: 50px 1fr 100px 120px 40px;
     align-items: center;
+}
+
+.todo-card:hover {
+    background-color: #ccc;
 }
 
 .todo-checkbox {
@@ -264,14 +282,10 @@ body {
     color: #4e4e4e;
 }
 
-.todo-complete {
+.todo-card.todo-complete div:not(:last-of-type)  {
     text-decoration: line-through;
 }
 
-
-
-
-/* Debug */
 .modal {
     display: none;
     position: fixed;
@@ -283,7 +297,7 @@ body {
     overflow: auto;
     background-color: rgba(0,0,0,0.6);
 }
-  
+
 .modal-content {
     background-color: #fff;
     margin: 180px auto;
@@ -300,7 +314,7 @@ form {
     flex-direction: column;
     gap: 10px;
 }
-  
+
 .close-button {
     position: absolute;
     right: 15px;
@@ -308,7 +322,7 @@ form {
     font-size: 24px;
     cursor: pointer;
 }
-  
+
 input[type="text"],
 input[type="date"],
 textarea {
@@ -328,11 +342,11 @@ textarea {
     gap: 10px;
     margin-top: 5px;
 }
-  
+
 .priority-group input {
     display: none;
 }
-  
+
 .priority-group label {
     flex: 1;
     text-align: center;
@@ -341,37 +355,37 @@ textarea {
     cursor: pointer;
     font-weight: bold;
 }
-  
+
 .priority-group input[value="low"] + label {
     background-color: var(--light-green);
     color: var(--dark-green);
 }
-  
+
 .priority-group input[value="low"]:checked + label {
     background-color: var(--green);
     color: white;
 }
-  
+
 .priority-group input[value="medium"] + label {
     background-color: var(--light-orange);
     color: var(--dark-orange);
 }
-  
+
 .priority-group input[value="medium"]:checked + label {
     background-color: var(--orange);
     color: white;
 }
-  
+
 .priority-group input[value="high"] + label {
     background-color: var(--light-red);
     color: var(--dark-red);
 }
-  
+
 .priority-group input[value="high"]:checked + label {
     background-color: var(--red);
     color: white;
 }
-  
+
 #addTaskBtn {
     margin-top: 10px;
     padding: 10px;
@@ -381,3 +395,111 @@ textarea {
     border: none;
     border-radius: 4px;
 }
+
+.todo-details-modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.6);
+}
+
+.todo-options {
+    cursor: pointer;
+    justify-self: center;
+}
+
+.details-content {
+    background-color: #fff;
+    margin: 180px auto;
+    padding: 20px;
+    width: 500px;
+    border-radius: 10px;
+    position: relative;
+    display: grid;
+    grid-template: 50px 150px 1fr / 0.8fr 1fr;
+}
+
+.details-content .low {
+    background-color: var(--green);
+}
+
+.details-content .medium {
+    background-color: var(--orange);
+}
+
+.details-content .high {
+    background-color: var(--red);
+}
+
+#details-notes {
+    grid-row: span 2;
+}
+
+#details-title {
+    font-weight: bold;
+    align-self: center;
+    font-size: 24px;
+}
+
+#details-desc {
+    inline-size: 250px;
+    overflow-wrap: break-word;
+}
+
+#details-due {
+    justify-self: flex-end;
+    font-weight: bold;
+}
+
+#details-due::before {
+    content: 'Due ';
+    font-weight: normal;
+}
+
+#details-notes {
+    box-sizing: border-box;
+    border: 1px solid grey;
+    border-radius: 4px;
+    padding: 10px;
+    inline-size: 250px;
+    overflow-wrap: break-word;
+    overflow: auto;
+    max-height: 180px;
+}
+
+#details-priority {
+    justify-self: flex-start;
+    font-weight: bold;
+    border-radius: 4px;
+    color: white;
+    padding: 4px 10px;
+}
+
+.task-menu {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 5px 0;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    z-index: 1000;
+    display: none;
+    flex-direction: column;
+    width: 100px;
+}
+
+.task-menu div {
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.task-menu div:hover {
+    background-color: #f0f0f0;
+}
+
+/* Debug */

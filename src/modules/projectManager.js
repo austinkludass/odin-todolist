@@ -2,7 +2,12 @@ let projectArray = [];
 
 export const ProjectListManager = {
     getProjects: () => projectArray,
-    addProject: (project) => projectArray.push(project),
+    addProject: (project) => {
+        if (projectArray.some(proj => proj.title === project.title)) return false;
+        
+        projectArray.push(project)
+        return true;
+    },
     removeProject: (project) => projectArray = projectArray.filter(proj => proj.title !== project.title),
     addToDo: (project, task) => {
         for (let item of projectArray) {
@@ -22,6 +27,17 @@ export const ProjectListManager = {
         });
 
         return projectFromArray;
+    },
+    removeTask: (project, task) => {
+        const projectFromArray = projectArray.filter(proj => proj.title === project.title)[0];
+        projectFromArray.todoList = projectFromArray.todoList.filter(item => item.title !== task.title);
+    },
+    updateTask: (project, task) => {
+        const projectFromArray = projectArray.filter(proj => proj.title === project.title)[0];
+        const taskIndex = projectFromArray.todoList.findIndex(t => t.title === task.title);
+        if (taskIndex !== -1) {
+            projectFromArray.todoList[taskIndex] = task;
+        }
     },
     updateStorage: () => {
         localStorage.setItem("projects", JSON.stringify(projectArray));
