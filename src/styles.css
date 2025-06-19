@@ -1,3 +1,383 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alumni+Sans+SC:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --light-blue: #007bff;
+    --blue: #0056b3;
+    --light-green: #d4edda;
+    --green: #218838;
+    --dark-green: #155724;
+    --light-orange: #ffeeba;
+    --orange: #e0a800;
+    --dark-orange: #856404;
+    --light-red: #f8d7da;
+    --red: #c82333;
+    --dark-red: #721c24;
+}
+
 body {
-    background-color: teal;
+    background-color: rgb(245, 245, 245);
+    margin: 0;
+    box-sizing: border-box;
+    padding: 100px;
+    height: 100vh;
+    font-family: "Manrope", sans-serif;
+}
+
+.container {
+    display: grid;
+    position: relative;
+    box-sizing: border-box;
+    border: 5px solid grey;
+    overflow: hidden;
+    border-radius: 40px;
+    min-width: 750px;
+    max-width: 1200px;
+    height: 100%;
+    grid-template: 1fr / 250px 1fr;
+    background-color: rgb(255, 255, 255);
+    user-select: none;
+}
+
+.sidebar {
+    display: grid;
+    grid-template-rows: 50px 80px;
+    /* padding: 10px; */
+    background-color: rgb(230, 230, 230);
+    box-shadow: 0.1px 0px 10px 0px #888;
+}
+
+.sidebar .header {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 40px;
+    padding: 0 10px;
+    color: rgb(70, 70, 70);
+}
+
+.sidebar .logo {
+    font-family: "Alumni Sans SC", sans-serif;
+    font-size: 40px;
+    padding: 10px;
+    color: var(--light-blue);
+    text-align: center;
+}
+
+.projects-grid {
+    display: grid;
+    grid-auto-rows: 40px;
+    color: rgb(58, 58, 58);
+}
+
+.project-card {
+    display: grid;
+    padding: 0 10px;
+    align-items: center;
+    grid-template-columns: 1fr 30px;
+}
+
+.project-card.selected {
+    background-color: var(--blue);
+    color: white;
+    font-weight: bold;
+}
+
+.project-card div {
+    justify-self: center;
+    cursor: pointer;
+}
+
+.add-button {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background-color: var(--light-blue);
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: background-color 0.3s;
+}
+
+.add-button:hover {
+    background-color: var(--blue);
+}
+
+.newitem-menu {
+    position: absolute;
+    bottom: 80px;
+    right: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: none;
+    z-index: 10;
+    overflow: hidden;
+}
+
+.newitem-menu div {
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.newitem-menu div:hover {
+    background-color: #f0f0f0;
+}
+
+.project-input-card {
+    display: grid;
+    position: relative;
+    z-index: 10;
+    padding: 5px 10px;
+    gap: 10px;
+    grid-template: 1fr / 1fr;
+}
+
+.project-input-card input {
+    display: flex;
+    outline: none;
+    border: none;
+    border: 1px solid #ccc;
+    background-color: transparent;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.project-input-card .btn-group {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.project-input-card button {
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    min-width: 100px;
+    padding: 6px 10px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.project-input-card button:nth-child(1) {
+    background-color: var(--light-blue);
+}
+
+.project-input-card button:nth-child(2) {
+    background-color: #ff0015;
+}
+
+.project-input-card button:nth-child(1):hover {
+    background-color: var(--blue);
+}
+
+.project-input-card button:nth-child(2):hover {
+    background-color: #a80412;
+}
+
+.project-menu {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 5px 0;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    z-index: 1000;
+    display: none;
+    flex-direction: column;
+    width: 100px;
+}
+  
+.project-menu div {
+    padding: 6px 12px;
+    cursor: pointer;
+}
+  
+.project-menu div:hover {
+    background-color: #f0f0f0;
+}
+
+.todo-container {
+    display: grid;
+    grid-template-rows: 100px;
+    grid-auto-rows: 50px;
+}
+
+.todo-header {
+    align-self: center;
+    font-size: xx-large;
+    font-weight: bold;
+    color: var(--light-blue);
+    margin-left: 20px;
+}
+
+.todo-card {
+    display: grid;
+    grid-template-columns: 50px 1fr 100px 100px;
+    align-items: center;
+}
+
+.todo-checkbox {
+    width: 16px;
+    height: 16px;
+    justify-self: center;
+    accent-color: #000000;
+}
+
+.todo-task {
+    font-weight: normal;
+}
+
+.todo-priority {
+    text-align: center;
+    justify-self: center;
+    min-width: 80px;
+    padding: 4px 0;
+    border-radius: 6px;
+}
+
+.priority-low {
+    background-color: var(--green);
+    color: var(--light-green);
+}
+
+.priority-medium {
+    background-color: var(--orange);
+    color: var(--light-orange);
+}
+
+.priority-high {
+    background-color: var(--red);
+    color: var(--light-red);
+}
+
+.todo-duedate {
+    justify-self: center;
+    color: #4e4e4e;
+}
+
+.todo-complete {
+    text-decoration: line-through;
+}
+
+
+
+
+/* Debug */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.6);
+}
+  
+.modal-content {
+    background-color: #fff;
+    margin: 180px auto;
+    padding: 20px;
+    width: 400px;
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+  
+.close-button {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+  
+input[type="text"],
+input[type="date"],
+textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 2px;
+    box-sizing: border-box;
+}
+
+textarea {
+    height: 60px;
+    resize: none;
+}
+.priority-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 5px;
+}
+  
+.priority-group input {
+    display: none;
+}
+  
+.priority-group label {
+    flex: 1;
+    text-align: center;
+    padding: 10px 0;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+  
+.priority-group input[value="low"] + label {
+    background-color: var(--light-green);
+    color: var(--dark-green);
+}
+  
+.priority-group input[value="low"]:checked + label {
+    background-color: var(--green);
+    color: white;
+}
+  
+.priority-group input[value="medium"] + label {
+    background-color: var(--light-orange);
+    color: var(--dark-orange);
+}
+  
+.priority-group input[value="medium"]:checked + label {
+    background-color: var(--orange);
+    color: white;
+}
+  
+.priority-group input[value="high"] + label {
+    background-color: var(--light-red);
+    color: var(--dark-red);
+}
+  
+.priority-group input[value="high"]:checked + label {
+    background-color: var(--red);
+    color: white;
+}
+  
+#addTaskBtn {
+    margin-top: 10px;
+    padding: 10px;
+    cursor: pointer;
+    background-color: var(--light-blue);
+    color: white;
+    border: none;
+    border-radius: 4px;
 }
